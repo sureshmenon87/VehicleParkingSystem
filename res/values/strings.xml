@@ -1,5 +1,11 @@
 <resources>
 
     <string name="app_name">VehicleParkingSystem</string>
-
+    <string name="placeholder_username">Username</string>
+    <string name="placeholder_password">Password</string>
+    
+    <string name="login_exit">Exit</string>
+<string name="login_signin">Login</string>
+<string name="login_title">Vehicle Parking System</string>
+<string name="login_header">LOGIN</string>
 </resources>

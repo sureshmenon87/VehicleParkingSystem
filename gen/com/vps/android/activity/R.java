@@ -11,13 +11,30 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int button_bg=0x7f020000;
+        public static final int button_normal=0x7f020001;
+        public static final int circle=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
+        public static final int loginshape=0x7f020004;
+        public static final int shadow=0x7f020005;
+        public static final int triangle=0x7f020006;
+    }
+    public static final class id {
+        public static final int loginPanel=0x7f060002;
+        public static final int logo=0x7f060001;
+        public static final int shapeTriangle=0x7f060000;
     }
     public static final class layout {
         public static final int login=0x7f030000;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
+        public static final int login_exit=0x7f040003;
+        public static final int login_header=0x7f040006;
+        public static final int login_signin=0x7f040004;
+        public static final int login_title=0x7f040005;
+        public static final int placeholder_password=0x7f040002;
+        public static final int placeholder_username=0x7f040001;
     }
     public static final class style {
         /** 
