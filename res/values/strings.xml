@@ -7,5 +7,6 @@
     <string name="login_exit">Exit</string>
 <string name="login_signin">Login</string>
 <string name="login_title">Vehicle Parking System</string>
+<string name="entryexit_title">VEHICLE PARKING SYSTEM</string>
 <string name="login_header">LOGIN</string>
 </resources>

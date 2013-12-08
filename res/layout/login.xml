@@ -117,6 +117,7 @@
                 android:orientation="horizontal" >
 
                 <Button
+                    android:id="@+id/btnLogin"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_weight="1"
@@ -127,6 +128,7 @@
                     android:textStyle="bold" />
 
                 <Button
+                    android:id="@+id/btnExit"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_marginLeft="10dp"
