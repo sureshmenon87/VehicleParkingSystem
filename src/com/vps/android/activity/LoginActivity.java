@@ -109,6 +109,10 @@ public class LoginActivity extends Activity implements ServiceCallback{
 		}else if(model.getServiceOperation().equals("IsValidUser")){
 
 		sharedPrefs.edit().putString("UserCode",serviceModel.getResult().toString());
+		
+		Intent intent=new Intent(LoginActivity.this,VehicleActivity.class);
+		(LoginActivity.this).startActivity(intent);
+		
 		}
 
 	}
