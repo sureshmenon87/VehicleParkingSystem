@@ -49,6 +49,7 @@ public class EntryExitActivity extends Activity implements OnClickListener{
 	@Override
 	public void onBackPressed() {
 	    // your code.
-		Toast.makeText(this, "Logging off", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
+		finish();
 	}
 }

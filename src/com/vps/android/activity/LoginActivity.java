@@ -119,6 +119,7 @@ finish();
 		Log.i("VPS","onResult :"+model.getServiceOperation());
 		if (model.getServiceOperation().equals("IsValidDevice")) {
 			sharedPrefs.edit().putString("DeviceCode", serviceModel.getResult().toString());
+			Log.i("VPS","Devicecode :"+serviceModel.getResult().toString());
 			runOnUiThread(new Runnable() {
 
 				@Override
@@ -137,6 +138,7 @@ finish();
 		}else if(model.getServiceOperation().equals("IsValidUser")){
 
 		sharedPrefs.edit().putString("UserCode",serviceModel.getResult().toString());
+		Log.i("VPS","Usercode :"+serviceModel.getResult().toString());
 		
 		Intent intent=new Intent(LoginActivity.this,EntryExitActivity.class);
 		(LoginActivity.this).startActivity(intent);
