@@ -15,6 +15,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.opengl.Visibility;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -24,6 +26,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity implements ServiceCallback{
 
@@ -37,6 +41,7 @@ public class LoginActivity extends Activity implements ServiceCallback{
 	private RelativeLayout layout01=null;
 	private RelativeLayout deviceCheck=null;
 	private SharedPreferences sharedPrefs=null;
+	private TextView sLogin=null;
 
 	//I358049040172566
 	@Override
@@ -48,13 +53,19 @@ public class LoginActivity extends Activity implements ServiceCallback{
 				.getDefaultSharedPreferences(this);
 
 		Button btnLogin=(Button)findViewById(R.id.btnLogin);
+		Button btnExit=(Button)findViewById(R.id.btnExit);
 		userName=(EditText)findViewById(R.id.txtUserName);
 		serviceModel=new ServiceModel();
 		layoutLogin=(RelativeLayout)findViewById(R.id.loginPanel);
 		layoutTriangle=(RelativeLayout)findViewById(R.id.shapeTriangle);
 		layout01=(RelativeLayout)findViewById(R.id.layout01);
 		deviceCheck=(RelativeLayout)findViewById(R.id.deviceCheck);
-
+		sLogin=(TextView)findViewById(R.id.start);
+if(!isNetworkAvailable())
+{
+	Toast.makeText(this, "Please check your internet connection", Toast.LENGTH_LONG).show();
+finish();	
+}
 		Log.i("VPS","IMEI "+getDeviceIMEI());
 		PropertyInfo propertyInfo=new PropertyInfo();
 		propertyInfo.setName("DeviceNo");
@@ -91,6 +102,14 @@ public class LoginActivity extends Activity implements ServiceCallback{
 
 			}
 		});
+		btnExit.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+
+				System.exit(0);
+			}
+		});
 	}
 
 
@@ -109,6 +128,7 @@ public class LoginActivity extends Activity implements ServiceCallback{
 					layoutLogin.setVisibility(RelativeLayout.VISIBLE);
 					layoutTriangle.setVisibility(RelativeLayout.VISIBLE);
 					deviceCheck.setVisibility(RelativeLayout.INVISIBLE);
+					sLogin.setVisibility(View.VISIBLE);
 					
 
 				}
@@ -130,6 +150,13 @@ public class LoginActivity extends Activity implements ServiceCallback{
 
 		TelephonyManager mngr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE); 
 		return mngr.getDeviceId();
+	}
+	
+	private boolean isNetworkAvailable() {
+	    ConnectivityManager connectivityManager 
+	          = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+	    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 
 
