@@ -27,13 +27,14 @@ public final class R {
         public static final int Panel01=0x7f060000;
         public static final int btnEntry=0x7f060001;
         public static final int btnExit=0x7f060002;
-        public static final int btnLogin=0x7f060008;
-        public static final int deviceCheck=0x7f060009;
-        public static final int loginPanel=0x7f060005;
-        public static final int logo=0x7f060004;
-        public static final int shapeTriangle=0x7f060003;
-        public static final int txtPassword=0x7f060007;
-        public static final int txtUserName=0x7f060006;
+        public static final int btnLogin=0x7f060009;
+        public static final int deviceCheck=0x7f06000a;
+        public static final int layout01=0x7f060003;
+        public static final int loginPanel=0x7f060006;
+        public static final int logo=0x7f060005;
+        public static final int shapeTriangle=0x7f060004;
+        public static final int txtPassword=0x7f060008;
+        public static final int txtUserName=0x7f060007;
     }
     public static final class layout {
         public static final int entryexit=0x7f030000;

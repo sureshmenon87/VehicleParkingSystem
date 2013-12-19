@@ -34,6 +34,8 @@ public class LoginActivity extends Activity implements ServiceCallback{
 	private EditText password=null;
 	private RelativeLayout layoutLogin=null;
 	private RelativeLayout layoutTriangle=null;
+	private RelativeLayout layout01=null;
+	private RelativeLayout deviceCheck=null;
 	private SharedPreferences sharedPrefs=null;
 
 	//I358049040172566
@@ -50,6 +52,8 @@ public class LoginActivity extends Activity implements ServiceCallback{
 		serviceModel=new ServiceModel();
 		layoutLogin=(RelativeLayout)findViewById(R.id.loginPanel);
 		layoutTriangle=(RelativeLayout)findViewById(R.id.shapeTriangle);
+		layout01=(RelativeLayout)findViewById(R.id.layout01);
+		deviceCheck=(RelativeLayout)findViewById(R.id.deviceCheck);
 
 		Log.i("VPS","IMEI "+getDeviceIMEI());
 		PropertyInfo propertyInfo=new PropertyInfo();
@@ -100,8 +104,12 @@ public class LoginActivity extends Activity implements ServiceCallback{
 
 				@Override
 				public void run() {
+					
+					layout01.setVisibility(RelativeLayout.VISIBLE);
 					layoutLogin.setVisibility(RelativeLayout.VISIBLE);
 					layoutTriangle.setVisibility(RelativeLayout.VISIBLE);
+					deviceCheck.setVisibility(RelativeLayout.INVISIBLE);
+					
 
 				}
 			});
@@ -110,7 +118,7 @@ public class LoginActivity extends Activity implements ServiceCallback{
 
 		sharedPrefs.edit().putString("UserCode",serviceModel.getResult().toString());
 		
-		Intent intent=new Intent(LoginActivity.this,VehicleActivity.class);
+		Intent intent=new Intent(LoginActivity.this,EntryExitActivity.class);
 		(LoginActivity.this).startActivity(intent);
 		
 		}
