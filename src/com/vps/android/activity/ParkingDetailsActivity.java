@@ -1,4 +1,5 @@
 package com.vps.android.activity;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.ksoap2.serialization.PropertyInfo;
@@ -11,6 +12,7 @@ import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,15 +21,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 public class ParkingDetailsActivity extends Activity implements OnClickListener, ServiceCallback {
-	EditText entryTime=null,amountRs=null;
+	EditText entryTime=null,token=null,ve=null;
 	Button back=null,movie=null,pass=null;
-	TextView amount=null,user=null,vType=null;
+	TextView amount=null,user=null,vType=null,timeSet=null,vt=null;
 	String time=null;
 	String vehType=null;
 	int type=0;
+	int paasType=0;
+	String vehicType="FourWheeler";
 	ServiceModel serviceModel=null;
+	long tokenNo=32;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,23 +63,29 @@ public class ParkingDetailsActivity extends Activity implements OnClickListener,
 		back=(Button)findViewById(R.id.back);
 		movie=(Button)findViewById(R.id.movie);
 		pass=(Button)findViewById(R.id.pass);
-		amount=(TextView)findViewById(R.id.textamount);
-		amountRs=(EditText)findViewById(R.id.editamount);
+		token=(EditText)findViewById(R.id.token);
 		vType=(TextView)findViewById(R.id.vtype);
 		user=(TextView)findViewById(R.id.user);
-		
+		amount=(TextView)findViewById(R.id.textView3);
+		timeSet=(TextView)findViewById(R.id.textView5);
+		vt=(TextView)findViewById(R.id.vt);
+		ve=(EditText)findViewById(R.id.ve);
 		if(type==0)
 		{
+		token.setVisibility(View.GONE);
 		amount.setVisibility(View.GONE);
-		amountRs.setVisibility(View.GONE);
 		if(vehType.equalsIgnoreCase("two"))
 				{
+			vehicType="TwoWheeler";
 			vType.setText("TWO WHEELERS");
 				}
 		}
 		else if(type==1)
 		{
-			vType.setVisibility(View.INVISIBLE);
+			vt.setVisibility(View.GONE);
+			ve.setVisibility(View.GONE);
+			timeSet.setText("Exit Time");
+			vType.setVisibility(View.VISIBLE);
 			movie.setVisibility(View.GONE);
 			pass.setText("Print");
 		}
@@ -120,7 +132,7 @@ public class ParkingDetailsActivity extends Activity implements OnClickListener,
 	case R.id.pass:
 		if(type==1)
 		{
-			
+		exitServiceCall(tokenNo);	
 		}
 		else
 		{
@@ -133,6 +145,68 @@ public class ParkingDetailsActivity extends Activity implements OnClickListener,
 	}
 	
 	
+	private void exitServiceCall(long i) {
+		// TODO Auto-generated method stub
+		PropertyInfo propertyInfo=new PropertyInfo();
+		propertyInfo.setName("TokenNo");
+		propertyInfo.setValue(i);
+		propertyInfo.setType(PropertyInfo.LONG_CLASS);
+		serviceModel.addProperty(propertyInfo);
+		
+		propertyInfo=new PropertyInfo();
+		propertyInfo.setName("ExitDateTime");
+		propertyInfo.setValue("20-Dec-2013 11:30 PM");
+		propertyInfo.setType(PropertyInfo.STRING_CLASS);
+		serviceModel.addProperty(propertyInfo);
+		
+		propertyInfo=new PropertyInfo();
+		propertyInfo.setName("DeviceCode");
+		propertyInfo.setValue(1);
+		propertyInfo.setType(PropertyInfo.INTEGER_CLASS);
+		serviceModel.addProperty(propertyInfo);
+		
+		propertyInfo=new PropertyInfo();
+		propertyInfo.setName("UserCode");
+		propertyInfo.setValue(1);
+		propertyInfo.setType(PropertyInfo.INTEGER_CLASS);
+		serviceModel.addProperty(propertyInfo);
+		propertyInfo=new PropertyInfo();
+		
+		propertyInfo.setName("TokenType");
+		propertyInfo.setValue("Movie");
+		propertyInfo.setType(PropertyInfo.STRING_CLASS);
+		serviceModel.addProperty(propertyInfo);
+		
+		propertyInfo=new PropertyInfo();
+		propertyInfo.setName("VehicleType");
+		propertyInfo.setValue("TwoWheeler");
+		propertyInfo.setType(PropertyInfo.STRING_CLASS);
+		serviceModel.addProperty(propertyInfo);
+		
+		propertyInfo=new PropertyInfo();
+		propertyInfo.setName("VehicleNo");
+		propertyInfo.setValue("12345");
+		propertyInfo.setType(PropertyInfo.STRING_CLASS);
+		serviceModel.addProperty(propertyInfo);
+		propertyInfo=new PropertyInfo();
+		
+		propertyInfo.setName("EntryDateTime");
+		propertyInfo.setValue("20-Dec-2013 11:00 PM");
+		propertyInfo.setType(PropertyInfo.STRING_CLASS);
+		serviceModel.addProperty(propertyInfo);
+		
+		propertyInfo=new PropertyInfo();
+		propertyInfo.setName("Amount");
+		propertyInfo.setValue("40.00");
+		propertyInfo.setType(PropertyInfo.STRING_CLASS);
+		serviceModel.addProperty(propertyInfo);
+		
+		
+		serviceModel.setServiceOperation("SetExit");
+		WebServiceEngine engine=new WebServiceEngine(ParkingDetailsActivity.this);
+		engine.setServiceModel(serviceModel);
+		engine.start();
+	}
 	private void servicecall(String passValue) {
 		// TODO Auto-generated method stub
 		PropertyInfo propertyInfo=new PropertyInfo();
@@ -143,13 +217,19 @@ public class ParkingDetailsActivity extends Activity implements OnClickListener,
 		
 		propertyInfo=new PropertyInfo();
 		propertyInfo.setName("EntryDateTime");
-		propertyInfo.setValue("DateTime");
+		propertyInfo.setValue("20-Dec-2013 11:00 PM");
 		propertyInfo.setType(PropertyInfo.STRING_CLASS);
 		serviceModel.addProperty(propertyInfo);
 		
 		 propertyInfo=new PropertyInfo();
+			propertyInfo.setName("TokenType");
+			propertyInfo.setValue(passValue);
+			propertyInfo.setType(PropertyInfo.STRING_CLASS);
+			serviceModel.addProperty(propertyInfo);
+		
+		 propertyInfo=new PropertyInfo();
 		propertyInfo.setName("VehicleType");
-		propertyInfo.setValue(passValue);
+		propertyInfo.setValue(vehicType);
 		propertyInfo.setType(PropertyInfo.STRING_CLASS);
 		serviceModel.addProperty(propertyInfo);
 		
@@ -171,7 +251,7 @@ public class ParkingDetailsActivity extends Activity implements OnClickListener,
 	}
 	@Override
 	public void onBackPressed() {
-	    // your code.
+	
 		Intent intent=new Intent(ParkingDetailsActivity.this,VehicleActivity.class);
 		intent.putExtra("type", type);
 		(ParkingDetailsActivity.this).startActivity(intent);
@@ -181,6 +261,17 @@ public class ParkingDetailsActivity extends Activity implements OnClickListener,
 		// TODO Auto-generated method stub
 		Log.i("VPS","parkingToken :"+model.getServiceOperation());
 		Log.i("VPS","parkingToken :"+serviceModel.getResult().toString());
+		//Suresh put alert here and on click call on this below intent
+		Intent intent=new Intent(ParkingDetailsActivity.this,EntryExitActivity.class);
+		intent.putExtra("type", type);
+		(ParkingDetailsActivity.this).startActivity(intent);
+	}
+	private static Object getSOAPDateString(java.util.Date itemValue) {
+	    String lFormatTemplate = "yyyy-MM-dd'T'hh:mm:ss'Z'";
+	    java.text.DateFormat lDateFormat = new SimpleDateFormat(lFormatTemplate);
+	    String lDate = lDateFormat.format(itemValue);
+
+	    return lDate;
 	}
 
 }
