@@ -30,10 +30,12 @@ public class ParkingDetailsActivity extends Activity implements OnClickListener,
 	String time=null;
 	String vehType=null;
 	int type=0;
+	double vals;
 	int paasType=0;
 	String vehicType="FourWheeler";
 	ServiceModel serviceModel=null;
 	long tokenNo=32;
+	String tost="";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -191,14 +193,11 @@ public class ParkingDetailsActivity extends Activity implements OnClickListener,
 		propertyInfo=new PropertyInfo();
 		
 		propertyInfo.setName("EntryDateTime");
-		propertyInfo.setValue("20-Dec-2013 11:00 PM");
+		propertyInfo.setValue("");
 		propertyInfo.setType(PropertyInfo.STRING_CLASS);
 		serviceModel.addProperty(propertyInfo);
 		
-		propertyInfo=new PropertyInfo();
-		propertyInfo.setName("Amount");
-		propertyInfo.setValue("40.00");
-		propertyInfo.setType(PropertyInfo.STRING_CLASS);
+	
 		serviceModel.addProperty(propertyInfo);
 		
 		
@@ -261,17 +260,31 @@ public class ParkingDetailsActivity extends Activity implements OnClickListener,
 		// TODO Auto-generated method stub
 		Log.i("VPS","parkingToken :"+model.getServiceOperation());
 		Log.i("VPS","parkingToken :"+serviceModel.getResult().toString());
-		//Suresh put alert here and on click call on this below intent
+		if(model.getServiceOperation()=="SetEntry")
+		{
+		System.out.println(serviceModel.getResult().toString());
+		tost="The Token Id is "+serviceModel.getResult().toString();
+		}
+		else if(model.getServiceOperation()=="SetExit")
+		{
+			System.out.println(serviceModel.getResult().toString());
+			tost="The bill has generated with the values "+serviceModel.getResult().toString();
+		}
+		this.runOnUiThread(show_toast);
 		Intent intent=new Intent(ParkingDetailsActivity.this,EntryExitActivity.class);
 		intent.putExtra("type", type);
 		(ParkingDetailsActivity.this).startActivity(intent);
 	}
-	private static Object getSOAPDateString(java.util.Date itemValue) {
-	    String lFormatTemplate = "yyyy-MM-dd'T'hh:mm:ss'Z'";
-	    java.text.DateFormat lDateFormat = new SimpleDateFormat(lFormatTemplate);
-	    String lDate = lDateFormat.format(itemValue);
-
-	    return lDate;
-	}
+	
+	
+	private Runnable show_toast = new Runnable()
+	{
+	    public void run()
+	    {
+	        Toast.makeText(ParkingDetailsActivity.this,tost, Toast.LENGTH_SHORT)
+	                    .show();
+	    }
+	};
+	
 
 }
