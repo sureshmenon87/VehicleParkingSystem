@@ -40,6 +40,7 @@ public class LoginActivity extends Activity implements ServiceCallback{
 	private RelativeLayout layoutTriangle=null;
 	private RelativeLayout layout01=null;
 	private RelativeLayout deviceCheck=null;
+	private RelativeLayout progressBar=null;
 	private SharedPreferences sharedPrefs=null;
 	private SharedPreferences.Editor editor;
 	private TextView sLogin=null;
@@ -61,6 +62,7 @@ public class LoginActivity extends Activity implements ServiceCallback{
 
 		serviceModel=new ServiceModel();
 		layoutLogin=(RelativeLayout)findViewById(R.id.loginPanel);
+		progressBar=(RelativeLayout)findViewById(R.id.progressBar);
 		layoutTriangle=(RelativeLayout)findViewById(R.id.shapeTriangle);
 		layout01=(RelativeLayout)findViewById(R.id.layout01);
 		deviceCheck=(RelativeLayout)findViewById(R.id.deviceCheck);
@@ -94,6 +96,8 @@ finish();
 				Log.i("VPS","PWD:"+password.getEditableText().toString());
 				
 				if(userName.getEditableText().toString().length()!=0 && password.getEditableText().toString().length()!=0){
+					progressBar.setVisibility(RelativeLayout.VISIBLE);
+					progressBar.bringToFront();
 					PropertyInfo propertyInfo=new PropertyInfo();
 					propertyInfo.setName("UserID");
 					propertyInfo.setValue(userName.getEditableText().toString());
@@ -120,6 +124,7 @@ finish();
 			@Override
 			public void onClick(View arg0) {
 
+				finish();
 				System.exit(0);
 			}
 		});
@@ -172,7 +177,7 @@ finish();
 				editor.putString("UserName", userName.getEditableText().toString());
 				editor.putString("UserCode",serviceModel.getResult().toString());
 				editor.commit();
-
+				finish();
 				Intent intent=new Intent(LoginActivity.this,EntryExitActivity.class);
 				(LoginActivity.this).startActivity(intent);
 			}else if(result.equals("-1")){
@@ -192,6 +197,14 @@ finish();
 	}
 
 
+	@Override
+	protected void onNewIntent(Intent intent) {
+		// TODO Auto-generated method stub
+		super.onNewIntent(intent);
+		
+		
+	}
+	
 	private String getDeviceIMEI(){
 
 		TelephonyManager mngr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE); 
@@ -210,7 +223,7 @@ finish();
 
 			@Override
 			public void run() {
-
+				progressBar.setVisibility(RelativeLayout.INVISIBLE);
 				Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_LONG).show();	
 			}
 		});			

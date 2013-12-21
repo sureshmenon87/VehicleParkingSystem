@@ -14,6 +14,9 @@ public class VehicleActivity extends Activity implements OnClickListener{
 
 ImageView twoWheeler=null;
 ImageView fourWheeler=null;
+
+ImageView imgLogout=null;
+ImageView imgHome=null;
 int type=0;
 String vehicle="two";
 
@@ -24,10 +27,36 @@ String vehicle="two";
 		type=getIntent().getExtras().getInt("type");
 		setContentView(R.layout.vehicle);
 		TextView txtUserName= (TextView) findViewById(R.id.txtWelcomeUserName);
-		txtUserName.setText("Welcome, "+getSharedPreferences("com.vps.android.activity", Context.MODE_PRIVATE).getString("UserName","null"));
+		
+		imgLogout=(ImageView)findViewById(R.id.imgLogout);
+		imgHome=(ImageView)findViewById(R.id.imgHome);
+		
+		txtUserName.setText("Welcome, "+getSharedPreferences("com.vps.android.activity", Context.MODE_PRIVATE).getString("UserName","null")+" ");
 		intialize();
 		setListiners();
 		Log.i("VPS","eType "+type);
+		
+		imgHome.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent=new Intent(VehicleActivity.this,EntryExitActivity.class);
+				(VehicleActivity.this).startActivity(intent);
+				
+			}
+		});
+		
+		
+		imgLogout.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				finish();
+				Intent intent=new Intent(VehicleActivity.this,LoginActivity.class);
+				(VehicleActivity.this).startActivity(intent);
+				
+			}
+		});
 	}
 	private void setListiners() {
 		// TODO Auto-generated method stub
@@ -48,7 +77,7 @@ String vehicle="two";
 		{
 			vehicle="four";	
 		}
-		
+		finish();
 		Intent intent=new Intent(VehicleActivity.this,ParkingDetailsActivity.class);
 		intent.putExtra("v", vehicle);
 		intent.putExtra("type", type);
@@ -57,10 +86,7 @@ String vehicle="two";
 	}
 	@Override
 	public void onBackPressed() {
-	    // your code.
-		Intent intent=new Intent(VehicleActivity.this,EntryExitActivity.class);
-		
-		(VehicleActivity.this).startActivity(intent);
+	    
 	}
 
 

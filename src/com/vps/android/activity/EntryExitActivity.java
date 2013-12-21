@@ -28,6 +28,17 @@ public class EntryExitActivity extends Activity implements OnClickListener{
 		 Log.i("VPS","Entry Exit "+userName);
 		 txtUserName.setText("Welcome, "+userName);
 		 setListiners();
+		 ImageView imgLogout=(ImageView)findViewById(R.id.imgLogout);
+			imgLogout.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					finish();
+					Intent intent=new Intent(EntryExitActivity.this,LoginActivity.class);
+					(EntryExitActivity.this).startActivity(intent);
+
+				}
+			});
 	
 	}
 	private void setListiners() {
@@ -47,7 +58,7 @@ public class EntryExitActivity extends Activity implements OnClickListener{
 				entry=1;	
 			}
 						
-			
+			finish();
 			Intent intent=new Intent(EntryExitActivity.this,VehicleActivity.class);
 			intent.putExtra("type", entry);
 			(EntryExitActivity.this).startActivity(intent);
@@ -56,7 +67,7 @@ public class EntryExitActivity extends Activity implements OnClickListener{
 	@Override
 	public void onBackPressed() {
 	    // your code.
-		Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
-		finish();
+		//Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
+		//finish();
 	}
 }
