@@ -55,6 +55,8 @@ public class WebServiceEngine extends Thread{
 				request.addProperty(propertyList.get(i));
 				}
 				
+				
+				
 				SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 				envelope.dotNet = true;
 				envelope.setOutputSoapObject(request);
@@ -68,6 +70,7 @@ public class WebServiceEngine extends Thread{
 
 			}
 		} catch (Exception e) {
+			serviceModel.setResult("-1");
 			e.printStackTrace();
 		}
 	}

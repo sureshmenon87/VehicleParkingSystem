@@ -26,10 +26,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-<<<<<<< HEAD
-=======
 import android.widget.TextView;
->>>>>>> 09f0c5216c951b7b4953360c5705d6d3a750a40c
 import android.widget.Toast;
 
 public class LoginActivity extends Activity implements ServiceCallback{
@@ -44,6 +41,7 @@ public class LoginActivity extends Activity implements ServiceCallback{
 	private RelativeLayout layout01=null;
 	private RelativeLayout deviceCheck=null;
 	private SharedPreferences sharedPrefs=null;
+	private SharedPreferences.Editor editor;
 	private TextView sLogin=null;
 
 	//I358049040172566
@@ -52,8 +50,9 @@ public class LoginActivity extends Activity implements ServiceCallback{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-		sharedPrefs = PreferenceManager
-				.getDefaultSharedPreferences(this);
+		
+		sharedPrefs  = getSharedPreferences("com.vps.android.activity", Context.MODE_PRIVATE);
+		editor=sharedPrefs.edit();
 
 		Button btnLogin=(Button)findViewById(R.id.btnLogin);
 		Button btnExit=(Button)findViewById(R.id.btnExit);
@@ -72,9 +71,10 @@ if(!isNetworkAvailable())
 finish();	
 }
 		Log.i("VPS","IMEI "+getDeviceIMEI());
+		Log.i("VPS","Using IMEI I358049040172566");
 		PropertyInfo propertyInfo=new PropertyInfo();
 		propertyInfo.setName("DeviceNo");
-		propertyInfo.setValue(getDeviceIMEI());
+		propertyInfo.setValue("I358049040172566");
 		propertyInfo.setType(PropertyInfo.STRING_CLASS);
 		serviceModel.addProperty(propertyInfo);
 		serviceModel.setServiceOperation("IsValidDevice");
@@ -91,6 +91,8 @@ finish();
 
 
 				Log.i("VPS","UN:"+userName.getEditableText().toString());
+				Log.i("VPS","PWD:"+password.getEditableText().toString());
+				
 				if(userName.getEditableText().toString().length()!=0 && password.getEditableText().toString().length()!=0){
 					PropertyInfo propertyInfo=new PropertyInfo();
 					propertyInfo.setName("UserID");
@@ -130,52 +132,61 @@ finish();
 		Log.i("VPS","onResult :"+model.getServiceOperation());
 		String result="-1";
 		if (model.getServiceOperation().equals("IsValidDevice")) {
-			sharedPrefs.edit().putString("DeviceCode", serviceModel.getResult().toString());
+			
 			Log.i("VPS","Devicecode :"+serviceModel.getResult().toString());
+			
+			if(serviceModel.getResult().toString().equals("0")){
+			runOnUiThread("Invalid device. Please contact administrator");	
+			}else{
+			
 			runOnUiThread(new Runnable() {
-
 				@Override
 				public void run() {
-
+					editor.putString("DeviceCode", serviceModel.getResult().toString());
+					
+					editor.commit();
+					Log.i("VPS"," DeviceCode "+sharedPrefs.getString("DeviceCode",null));
+					
 					layout01.setVisibility(RelativeLayout.VISIBLE);
 					layoutLogin.setVisibility(RelativeLayout.VISIBLE);
 					layoutTriangle.setVisibility(RelativeLayout.VISIBLE);
 					deviceCheck.setVisibility(RelativeLayout.INVISIBLE);
-<<<<<<< HEAD
 
-=======
 					sLogin.setVisibility(View.VISIBLE);
 					
->>>>>>> 09f0c5216c951b7b4953360c5705d6d3a750a40c
+
 
 				}
 			});
+			}
 
 		}else if(model.getServiceOperation().equals("IsValidUser")){
 
-<<<<<<< HEAD
+
 			result=serviceModel.getResult().toString();
+			Log.i("VPS","Usercode :"+result);
 			if(result.equals("0")){
 				runOnUiThread("Invalid username or password.");
 			}else if(!result.equals("0") && !result.equals("-1") ){
 
-				sharedPrefs.edit().putString("UserCode",serviceModel.getResult().toString());
+				editor.putString("UserName", userName.getEditableText().toString());
+				editor.putString("UserCode",serviceModel.getResult().toString());
+				editor.commit();
 
 				Intent intent=new Intent(LoginActivity.this,EntryExitActivity.class);
 				(LoginActivity.this).startActivity(intent);
 			}else if(result.equals("-1")){
-				runOnUiThread("Please try again later.");
+				runOnUiThread("Please check internet and try again later.");
 			}
 
 
-=======
-		sharedPrefs.edit().putString("UserCode",serviceModel.getResult().toString());
-		Log.i("VPS","Usercode :"+serviceModel.getResult().toString());
+
 		
-		Intent intent=new Intent(LoginActivity.this,EntryExitActivity.class);
-		(LoginActivity.this).startActivity(intent);
 		
->>>>>>> 09f0c5216c951b7b4953360c5705d6d3a750a40c
+		
+		
+		
+
 		}
 
 	}

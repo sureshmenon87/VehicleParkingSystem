@@ -1,12 +1,15 @@
 package com.vps.android.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class EntryExitActivity extends Activity implements OnClickListener{
@@ -20,6 +23,10 @@ public class EntryExitActivity extends Activity implements OnClickListener{
 		setContentView(R.layout.entryexit);
 		 btnEntry=(ImageView)findViewById(R.id.btnEntry);
 		 btnExit=(ImageView)findViewById(R.id.btnExit);
+		 TextView txtUserName= (TextView) findViewById(R.id.txtWelcomeUserName);
+		 String userName=getSharedPreferences("com.vps.android.activity", Context.MODE_PRIVATE).getString("UserName","null");
+		 Log.i("VPS","Entry Exit "+userName);
+		 txtUserName.setText("Welcome, "+userName);
 		 setListiners();
 	
 	}

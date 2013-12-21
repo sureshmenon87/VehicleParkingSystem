@@ -1,12 +1,14 @@
 package com.vps.android.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class VehicleActivity extends Activity implements OnClickListener{
 
@@ -21,6 +23,8 @@ String vehicle="two";
 		super.onCreate(savedInstanceState);
 		type=getIntent().getExtras().getInt("type");
 		setContentView(R.layout.vehicle);
+		TextView txtUserName= (TextView) findViewById(R.id.txtWelcomeUserName);
+		txtUserName.setText("Welcome, "+getSharedPreferences("com.vps.android.activity", Context.MODE_PRIVATE).getString("UserName","null"));
 		intialize();
 		setListiners();
 		Log.i("VPS","eType "+type);
