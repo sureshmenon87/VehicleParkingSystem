@@ -24,25 +24,51 @@ public final class R {
         public static final int two_wheeler=0x7f02000a;
     }
     public static final class id {
-        public static final int Panel01=0x7f060000;
-        public static final int btnEntry=0x7f060001;
-        public static final int btnExit=0x7f060002;
-        public static final int btnLogin=0x7f060009;
-        public static final int deviceCheck=0x7f06000a;
-        public static final int layout01=0x7f060003;
-        public static final int loginPanel=0x7f060006;
-        public static final int logo=0x7f060005;
-        public static final int shapeTriangle=0x7f060004;
-        public static final int txtPassword=0x7f060008;
-        public static final int txtUserName=0x7f060007;
+        public static final int Panel01=0x7f06000c;
+        public static final int back=0x7f060009;
+        public static final int btnEntry=0x7f06000d;
+        public static final int btnExit=0x7f06000e;
+        public static final int btnLogin=0x7f060016;
+        public static final int deviceCheck=0x7f060017;
+        public static final int entryTime=0x7f060008;
+        public static final int four=0x7f060019;
+        public static final int layout01=0x7f060010;
+        public static final int loginPanel=0x7f060013;
+        public static final int logo=0x7f060012;
+        public static final int movie=0x7f06000b;
+        public static final int pass=0x7f06000a;
+        public static final int shapeTriangle=0x7f060011;
+        public static final int start=0x7f06000f;
+        public static final int textView3=0x7f060003;
+        public static final int textView5=0x7f060007;
+        public static final int title=0x7f060000;
+        public static final int token=0x7f060004;
+        public static final int two=0x7f060018;
+        public static final int txtPassword=0x7f060015;
+        public static final int txtUserName=0x7f060014;
+        public static final int user=0x7f060001;
+        public static final int ve=0x7f060006;
+        public static final int vt=0x7f060005;
+        public static final int vtype=0x7f060002;
     }
     public static final class layout {
-        public static final int entryexit=0x7f030000;
-        public static final int login=0x7f030001;
-        public static final int vehicle=0x7f030002;
+        public static final int details=0x7f030000;
+        public static final int entryexit=0x7f030001;
+        public static final int login=0x7f030002;
+        public static final int vehicle=0x7f030003;
     }
     public static final class string {
+        public static final int Amount=0x7f040010;
+        public static final int FOUR=0x7f04000b;
+        public static final int Movie=0x7f040013;
+        public static final int Pass=0x7f040012;
+        public static final int Print=0x7f040014;
+        public static final int TWO=0x7f04000c;
+        public static final int Title=0x7f04000a;
+        public static final int Welcome=0x7f040009;
         public static final int app_name=0x7f040000;
+        public static final int back=0x7f040011;
+        public static final int entry=0x7f04000f;
         public static final int entryexit_title=0x7f040006;
         public static final int login_checkDevice=0x7f040008;
         public static final int login_exit=0x7f040003;
@@ -51,6 +77,8 @@ public final class R {
         public static final int login_title=0x7f040005;
         public static final int placeholder_password=0x7f040002;
         public static final int placeholder_username=0x7f040001;
+        public static final int token=0x7f04000d;
+        public static final int vehicle=0x7f04000e;
     }
     public static final class style {
         /** 

@@ -10,4 +10,16 @@
 <string name="entryexit_title">VEHICLE PARKING SYSTEM</string>
 <string name="login_header">LOGIN</string>
 <string name="login_checkDevice">Please wait..</string>
+  <string name="Welcome">Welcome User</string>
+    <string name="Title">VEHICLE PARKING SYSTEM</string>
+    <string name="FOUR">FOUR WHEELERS</string>
+    <string name="TWO">TWO WHEELERS</string>
+    <string name="token">Token No</string>
+    <string name="vehicle">Vehicle No</string>
+    <string name="entry">Entry Time</string>
+    <string name="Amount">Amount</string>
+    <string name="back">Back</string>
+    <string name="Pass">Pass</string>
+    <string name="Movie">Movie</string>
+    <string name="Print">Print</string>
 </resources>
